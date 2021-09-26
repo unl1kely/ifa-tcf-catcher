@@ -6,13 +6,13 @@ from sys import platform
 #from mytts import audio_read
 
 
-commands = {'win32':'cls','linux':'clear','darwin':'clear'}
+commands = {'win32':'cls','linux':'clear','linux2':'clear','darwin':'clear'}
 
 # Clear console screen
 def clear():
-    try:
+    if platform in commands:
         system(commands[platform])
-    except:
+    else:
         raise OSError("Uncompatible Operating-System.")
     print("...")
 
@@ -51,7 +51,8 @@ canada = "TCF Canada"
 # You can get them by inspecting element in portail.ifa-algerie.com (when logged in)
 # Then Application > Storage > Cookies
 cookies_ = {
-    '_ga':'' , 
+    '_ga':'' ,
+    '_fbp' : '',
     'remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d' : '', # the hash after 'remember_web_' can be different
     'XSRF-TOKEN' : '', 
     'ifa_session' : ''
@@ -96,7 +97,7 @@ class IFA:
 
 
 def siyi(session_, cookies=dict(), headers=dict()):
-    while True: # 
+    while True:
         try:
             return session_.get(rdv, cookies=cookies, headers=headers).text
         except:
@@ -111,7 +112,9 @@ def main():
     while True:
         i+=1
         if "error-body" in code:
-            print("Error. Trying...")
+            print("Error. Trying again...")
+        elif "<title>Error</" in code:
+            print("Too many requests !")
         else:
             instance = IFA(code)
             print( "{}/{} are free.".format(instance.freeL, instance.NeededL) )
@@ -130,10 +133,10 @@ def main():
                         else:
                             print("Places Indisponibles.")
                     except json.decoder.JSONDecodeError :
-                        print("No json response.")
+                        print("No JSON response.")
                 if success: break
         print("----------{}----------".format(i))
-        #sleep(0.1) # Interval between requests
+        sleep(0.1) # Interval between requests
         clear()
         code = siyi(session)
     input("\nOut of while loop.\n")
