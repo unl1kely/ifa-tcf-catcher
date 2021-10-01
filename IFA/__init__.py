@@ -115,6 +115,10 @@ def main():
             print("Error. Trying again...")
         elif "<title>Error</" in code:
             print("Too many requests !")
+        elif "<h1>500</h1>" in code:
+            print("Error 500.")
+        elif "Se souvenir de moi<" in code:
+            print("Cookies Expired.")
         else:
             instance = IFA(code)
             print( "{}/{} are free.".format(instance.freeL, instance.NeededL) )
