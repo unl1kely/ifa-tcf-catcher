@@ -51,8 +51,9 @@ canada = "TCF Canada"
 # You can get them by inspecting element in portail.ifa-algerie.com (when logged in)
 # Then Application > Storage > Cookies
 cookies_ = {
-    '_ga':'' ,
-    '_fbp' : '',
+    #'_ga':'' ,  (Old version)
+    #'_fbp' : '',(Old version)
+    'cf_clearance': '',
     'remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d' : '', # the hash after 'remember_web_' can be different
     'XSRF-TOKEN' : '', 
     'ifa_session' : ''
@@ -78,10 +79,12 @@ lambdaFree = lambda seance: seance['full']=='0'
 def do_getdays(sessionVar, uid):
     return sessionVar.post(getdays, data={"uid":uid, "service_type":"EX"} , headers=x )
 
+endstring_old = "console.log(defaultEvents)"
+endstring = "var $this = this;"
 class IFA:
     def __init__(self, icode) :
         self.code = icode
-        jsData = self.code[self.code.index("var defaultEvents")+21:self.code.index("console.log(defaultEvents)")-7]
+        jsData = self.code[self.code.index("var defaultEvents")+21:self.code.index(endstring)-7]
         # JSONifying the JavaScriptArray
         FixedJS = jsData[:-15]+ jsData[-14:]
         for keyword in keywords:
