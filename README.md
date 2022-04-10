@@ -38,3 +38,9 @@ Once you login with your own account in your browser -like Chrome- :
 # Python Libraries
 
 - Requests `pip install requests`
+
+# Updates
+
+## Cloudflare issue : 10/04/2022
+IFA added a Cloudflare protection. Therefore, the script does not work anymore.
+However, any contributions to fix this problem is welcome.
