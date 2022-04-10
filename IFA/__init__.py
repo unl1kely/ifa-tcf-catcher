@@ -56,7 +56,8 @@ cookies_ = {
     'cf_clearance': '',
     'remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d' : '', # the hash after 'remember_web_' can be different
     'XSRF-TOKEN' : '', 
-    'ifa_session' : ''
+    'ifa_session' : '',
+    '__cf_bm': ''
 }
 
 
